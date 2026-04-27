@@ -1,14 +1,13 @@
 databases:
   - name: tictactoe-db
     databaseName: nakama
-    user: postgres
-    plan: free # Change to standard for production
-
+    user: nakama
+    plan: free
 services:
   - type: web
     name: tictactoe-nakama
     env: docker
-    plan: free # Change to standard for production
+    plan: free
     healthCheckPath: /healthcheck
     envVars:
       - key: PORT
