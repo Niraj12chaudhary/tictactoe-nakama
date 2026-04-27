@@ -8,7 +8,7 @@ services:
     name: tictactoe-nakama
     env: docker
     rootDir: .
-    dockerfilePath: ./dockerfile
+    dockerfilePath: ./Dockerfile
     plan: free
     healthCheckPath: /healthcheck
     envVars:
