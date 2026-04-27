@@ -1,0 +1,19 @@
+{
+  // TypeScript config for the Nakama backend and local build tooling.
+  // The runtime bundle itself is emitted by esbuild, while this file
+  // provides strict type-checking and the ambient Nakama runtime types.
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "CommonJS",
+    "lib": ["ES2019"],
+    "moduleResolution": "Node",
+    "ignoreDeprecations": "6.0",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "types": ["node", "nakama-runtime"]
+  },
+  "include": ["src/**/*.ts", "scripts/**/*.ts"]
+}

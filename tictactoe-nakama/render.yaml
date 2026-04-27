@@ -1,0 +1,31 @@
+databases:
+  - name: tictactoe-db
+    databaseName: nakama
+    user: postgres
+    plan: free # Change to standard for production
+
+services:
+  - type: web
+    name: tictactoe-nakama
+    env: docker
+    plan: free # Change to standard for production
+    healthCheckPath: /healthcheck
+    envVars:
+      - key: PORT
+        value: 7350
+      - key: NAKAMA_DATABASE_ADDRESS
+        fromDatabase:
+          name: tictactoe-db
+          property: connectionString
+      - key: NAKAMA_NAME
+        value: tictactoe-nakama
+      - key: NAKAMA_SERVER_KEY
+        value: defaultkey
+      - key: NAKAMA_SESSION_ENCRYPTION_KEY
+        generateValue: true
+      - key: NAKAMA_SESSION_REFRESH_ENCRYPTION_KEY
+        generateValue: true
+      - key: NAKAMA_CONSOLE_USERNAME
+        value: admin
+      - key: NAKAMA_CONSOLE_PASSWORD
+        value: admin123

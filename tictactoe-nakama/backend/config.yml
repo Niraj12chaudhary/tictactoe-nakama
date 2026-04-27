@@ -1,0 +1,17 @@
+name: tictactoe-nakama
+data_dir: /nakama/data
+logger:
+  level: debug
+socket:
+  server_key: defaultkey
+session:
+  encryption_key: change-me-session-encryption-key
+  refresh_encryption_key: change-me-refresh-encryption-key
+  token_expiry_sec: 7200
+  refresh_token_expiry_sec: 86400
+runtime:
+  js_entrypoint: dist/main.js
+  http_key: change-me-runtime-http-key
+console:
+  username: admin
+  password: admin123
