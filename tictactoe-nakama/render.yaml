@@ -10,18 +10,36 @@ services:
     rootDir: tictactoe-nakama
     dockerfilePath: Dockerfile
     plan: free
-    healthCheckPath: /healthcheck
+    healthCheckPath: /
     envVars:
       - key: PORT
         value: 7350
-      - key: NAKAMA_DATABASE_ADDRESS
+      - key: NAKAMA_DATABASE_HOST
         fromDatabase:
           name: tictactoe-db
-          property: connectionString
+          property: host
+      - key: NAKAMA_DATABASE_PORT
+        fromDatabase:
+          name: tictactoe-db
+          property: port
+      - key: NAKAMA_DATABASE_USER
+        fromDatabase:
+          name: tictactoe-db
+          property: user
+      - key: NAKAMA_DATABASE_PASSWORD
+        fromDatabase:
+          name: tictactoe-db
+          property: password
+      - key: NAKAMA_DATABASE_NAME
+        fromDatabase:
+          name: tictactoe-db
+          property: database
       - key: NAKAMA_NAME
         value: tictactoe-nakama
       - key: NAKAMA_SERVER_KEY
         value: defaultkey
+      - key: NAKAMA_RUNTIME_HTTP_KEY
+        generateValue: true
       - key: NAKAMA_SESSION_ENCRYPTION_KEY
         generateValue: true
       - key: NAKAMA_SESSION_REFRESH_ENCRYPTION_KEY

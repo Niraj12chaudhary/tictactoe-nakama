@@ -9,12 +9,12 @@ RUN npm run build
 # Stage 2: Create the production Nakama image
 FROM heroiclabs/nakama:3.22.0
 
-COPY --from=builder /app/dist/main.js /nakama/data/modules/main.js
+COPY --from=builder /app/dist/main.js /nakama/data/modules/dist/main.js
 COPY backend/config.yml /nakama/data/config.yml
+COPY backend/start.sh /nakama/data/modules/start.sh
 
-# Setup entrypoint to automatically run migrations then start the server
 USER root
-RUN echo '#!/bin/sh\n/nakama/nakama migrate up\nexec /nakama/nakama --config /nakama/data/config.yml' > /nakama/run.sh && chmod +x /nakama/run.sh
+RUN chmod +x /nakama/data/modules/start.sh
 USER nakama
 
-ENTRYPOINT ["/nakama/run.sh"]
+ENTRYPOINT ["/bin/sh", "/nakama/data/modules/start.sh"]
