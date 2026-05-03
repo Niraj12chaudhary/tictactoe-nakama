@@ -1,0 +1,7 @@
+# Git line-ending rules.
+# Shell scripts must use LF on disk so they execute correctly inside
+# Linux containers even when authored on Windows machines.
+
+* text=auto
+
+*.sh text eol=lf

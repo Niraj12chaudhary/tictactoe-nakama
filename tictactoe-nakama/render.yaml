@@ -3,14 +3,16 @@ databases:
     databaseName: nakama
     user: nakama
     plan: free
+
 services:
+  # ── Nakama backend ──────────────────────────────────────────────────────────
   - type: web
     name: tictactoe-nakama
     env: docker
-    rootDir: tictactoe-nakama
+    rootDir: .
     dockerfilePath: Dockerfile
     plan: free
-    healthCheckPath: /
+    healthCheckPath: /healthcheck
     envVars:
       - key: PORT
         value: 7350
@@ -48,3 +50,24 @@ services:
         value: admin
       - key: NAKAMA_CONSOLE_PASSWORD
         value: admin123
+
+  # ── React frontend ──────────────────────────────────────────────────────────
+  - type: web
+    name: tictactoe-frontend
+    env: docker
+    rootDir: .
+    dockerfilePath: frontend/Dockerfile
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: VITE_NAKAMA_HOST
+        fromService:
+          name: tictactoe-nakama
+          type: web
+          property: host
+      - key: VITE_NAKAMA_PORT
+        value: 443
+      - key: VITE_NAKAMA_USE_SSL
+        value: "true"
+      - key: VITE_NAKAMA_SERVER_KEY
+        value: defaultkey
