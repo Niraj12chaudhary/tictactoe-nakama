@@ -14,7 +14,12 @@ COPY backend/config.yml /nakama/data/config.yml
 COPY backend/start.sh /nakama/data/modules/start.sh
 
 USER root
-RUN chmod +x /nakama/data/modules/start.sh
+# Ensure LF line endings at build time and set permissions
+RUN sed -i 's/\r//' /nakama/data/modules/start.sh \
+ && chmod +x /nakama/data/modules/start.sh \
+ && ls -la /nakama/data/modules/ \
+ && head -3 /nakama/data/modules/start.sh
 USER nakama
 
-ENTRYPOINT ["/bin/sh", "/nakama/data/modules/start.sh"]
+# Use sh -x so every line is traced in Render logs
+ENTRYPOINT ["/bin/sh", "-x", "/nakama/data/modules/start.sh"]
