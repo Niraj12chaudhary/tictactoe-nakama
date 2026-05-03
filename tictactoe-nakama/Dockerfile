@@ -14,12 +14,15 @@ COPY backend/config.yml /nakama/data/config.yml
 COPY backend/start.sh /nakama/data/modules/start.sh
 
 USER root
-# Ensure LF line endings at build time and set permissions
 RUN sed -i 's/\r//' /nakama/data/modules/start.sh \
- && chmod +x /nakama/data/modules/start.sh \
- && ls -la /nakama/data/modules/ \
- && head -3 /nakama/data/modules/start.sh
-USER nakama
+ && chmod +x /nakama/data/modules/start.sh
 
-# Use sh -x so every line is traced in Render logs
+# Run as root to eliminate any user-permission edge cases
+# (can tighten back to nakama user once deployment is confirmed working)
+USER root
+
+# Reduce Go GC pressure so the process doesn't spike memory at startup
+ENV GOGC=50
+ENV GOMEMLIMIT=400MiB
+
 ENTRYPOINT ["/bin/sh", "-x", "/nakama/data/modules/start.sh"]
