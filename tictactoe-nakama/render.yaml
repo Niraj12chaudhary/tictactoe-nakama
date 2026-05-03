@@ -36,6 +36,8 @@ services:
         fromDatabase:
           name: tictactoe-db
           property: database
+      - key: NAKAMA_DATABASE_SSL
+        value: require
       - key: NAKAMA_NAME
         value: tictactoe-nakama
       - key: NAKAMA_SERVER_KEY
