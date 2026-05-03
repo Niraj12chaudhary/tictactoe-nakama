@@ -9,7 +9,7 @@ services:
   - type: web
     name: tictactoe-nakama
     env: docker
-    rootDir: .
+    rootDir: tictactoe-nakama
     dockerfilePath: Dockerfile
     plan: free
     healthCheckPath: /healthcheck
@@ -57,7 +57,7 @@ services:
   - type: web
     name: tictactoe-frontend
     env: docker
-    rootDir: .
+    rootDir: tictactoe-nakama
     dockerfilePath: frontend/Dockerfile
     plan: free
     healthCheckPath: /
