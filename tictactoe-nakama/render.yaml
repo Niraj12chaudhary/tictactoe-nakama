@@ -16,11 +16,14 @@ services:
     envVars:
       - key: PORT
         value: 7350
-      # Single full internal URL — avoids short-hostname DNS failure
+      # External connection string — uses public FQDN (dpg-xxx.oregon-postgres.render.com)
+      # which resolves correctly inside Docker containers on Render's free tier.
+      # internalConnectionString uses a short hostname that only Render's internal DNS
+      # can resolve, but Docker containers don't use that DNS server.
       - key: NAKAMA_DATABASE_ADDRESS
         fromDatabase:
           name: tictactoe-db
-          property: internalConnectionString
+          property: connectionString
       - key: NAKAMA_DATABASE_SSL
         value: require
       - key: NAKAMA_NAME
