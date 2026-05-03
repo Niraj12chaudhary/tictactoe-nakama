@@ -16,26 +16,11 @@ services:
     envVars:
       - key: PORT
         value: 7350
-      - key: NAKAMA_DATABASE_HOST
+      # Single full internal URL — avoids short-hostname DNS failure
+      - key: NAKAMA_DATABASE_ADDRESS
         fromDatabase:
           name: tictactoe-db
-          property: host
-      - key: NAKAMA_DATABASE_PORT
-        fromDatabase:
-          name: tictactoe-db
-          property: port
-      - key: NAKAMA_DATABASE_USER
-        fromDatabase:
-          name: tictactoe-db
-          property: user
-      - key: NAKAMA_DATABASE_PASSWORD
-        fromDatabase:
-          name: tictactoe-db
-          property: password
-      - key: NAKAMA_DATABASE_NAME
-        fromDatabase:
-          name: tictactoe-db
-          property: database
+          property: internalConnectionString
       - key: NAKAMA_DATABASE_SSL
         value: require
       - key: NAKAMA_NAME
